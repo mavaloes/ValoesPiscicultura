@@ -22,7 +22,7 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 
 import br.com.framework.hibernate.session.HibernateUtil;
 import br.com.framework.utils.UtilFramework;
-import br.com.project.listener.ContextLoaderListenerCaixakiUtils;
+import br.com.project.listener.ContextLoaderListenerPisciculturaUtils;
 import br.com.project.model.classes.Entidade;
 
 /**
@@ -50,7 +50,7 @@ public class FilterOpenSessionInView extends DelegatingFilterProxy implements
 			ServletResponse servletResponse, FilterChain chain)
 			throws IOException, ServletException {
 
-		BasicDataSource springDataSource = (BasicDataSource) ContextLoaderListenerCaixakiUtils.getBean("springDataSource");
+		BasicDataSource springDataSource = (BasicDataSource) ContextLoaderListenerPisciculturaUtils.getBean("springDataSource");
 		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
 		PlatformTransactionManager transactionManager = new DataSourceTransactionManager(springDataSource);
 		TransactionStatus status = transactionManager.getTransaction(def);
