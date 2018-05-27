@@ -143,7 +143,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		</listener> -->
 
 	<listener>
-		<listener-class>br.com.project.listener.ContextLoaderListenerCaixakiUtils</listener-class>
+		<listener-class>br.com.project.listener.ContextLoaderListenerPisciculturaUtils</listener-class>
 	</listener>
 	
 	<listener>
@@ -160,7 +160,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	
 	<resource-ref>
 		<description>DataSource datasouce</description>
-		<res-ref-name>jdbc/datasouce</res-ref-name>
+		<res-ref-name>jdbc/datasource</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
