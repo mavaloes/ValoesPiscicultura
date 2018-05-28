@@ -41,9 +41,8 @@ public abstract class BeanReportView extends BeanViewAbstract {
 	}
 
 	public StreamedContent getArquivoReport() throws Exception {
-		return getReportUtil().geraRelatorio(getListDataBeanCollectionReport(),
-				getParametrosRelatorio(), getNomeRelatorioJasper(),
-				getNomeRelatorioSaida(), getTipoRelatorio());
+		return getReportUtil().geraRelatorio(getListDataBeanCollectionReport(), getParametrosRelatorio(),
+				getNomeRelatorioJasper(), getNomeRelatorioSaida(), getTipoRelatorio());
 	}
 
 	public int getTipoRelatorio() {
@@ -58,8 +57,7 @@ public abstract class BeanReportView extends BeanViewAbstract {
 		return listDataBeanCollectionReport;
 	}
 
-	public void setListDataBeanCollectionReport(
-			List<?> listDataBeanCollectionReport) {
+	public void setListDataBeanCollectionReport(List<?> listDataBeanCollectionReport) {
 		this.listDataBeanCollectionReport = listDataBeanCollectionReport;
 	}
 
@@ -67,8 +65,7 @@ public abstract class BeanReportView extends BeanViewAbstract {
 		return parametrosRelatorio;
 	}
 
-	public void setParametrosRelatorio(
-			HashMap<Object, Object> parametrosRelatorio) {
+	public void setParametrosRelatorio(HashMap<Object, Object> parametrosRelatorio) {
 		this.parametrosRelatorio = parametrosRelatorio;
 	}
 
@@ -81,7 +78,6 @@ public abstract class BeanReportView extends BeanViewAbstract {
 		if (nomeRelatorioJasper == null || nomeRelatorioJasper.isEmpty()) {
 			nomeRelatorioJasper = "default";
 		}
-
 		this.nomeRelatorioJasper = nomeRelatorioJasper;
 	}
 

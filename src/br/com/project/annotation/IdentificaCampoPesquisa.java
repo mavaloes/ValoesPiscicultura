@@ -11,7 +11,9 @@ import java.lang.annotation.Target;
 @Documented
 public abstract @interface IdentificaCampoPesquisa {
 
-	 String descricaoCampo(); // descricao do campo para a tela
-	 String campoConsulta(); // campo do banco
-	 int principal() default 10000; // posiÁ„o de ir· aparecer no combo
+	String descricaoCampo(); // descri√ß√£o do campo para a tela
+
+	String campoConsulta(); // campo do banco
+
+	int principal() default 10000; // posi√ß√£o que ir√° aparecer no combo
 }

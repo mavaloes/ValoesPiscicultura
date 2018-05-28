@@ -26,16 +26,15 @@ import br.com.project.listener.ContextLoaderListenerPisciculturaUtils;
 import br.com.project.model.classes.Entidade;
 
 /**
- * Responsavel por iniciar a sess�o/transaction do hibernate, iterceptar as
- * requisi��es/response, commit e rollback.
+ * Responsavel por iniciar a sessão/transaction do hibernate, iterceptar as
+ * requisições/response, commit e rollback.
  * 
  * @author alex
  * 
  */
 @SuppressWarnings("unused")
 @WebFilter(filterName = "conexaoFilter")
-public class FilterOpenSessionInView extends DelegatingFilterProxy implements
-		Serializable {
+public class FilterOpenSessionInView extends DelegatingFilterProxy implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private static SessionFactory sf;
@@ -46,19 +45,16 @@ public class FilterOpenSessionInView extends DelegatingFilterProxy implements
 	}
 
 	@Override
-	public void doFilter(ServletRequest servletRequest,
-			ServletResponse servletResponse, FilterChain chain)
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
 			throws IOException, ServletException {
-
-		BasicDataSource springDataSource = (BasicDataSource) ContextLoaderListenerPisciculturaUtils.getBean("springDataSource");
+		BasicDataSource springDataSource = (BasicDataSource) ContextLoaderListenerPisciculturaUtils
+				.getBean("springDataSource");
 		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
 		PlatformTransactionManager transactionManager = new DataSourceTransactionManager(springDataSource);
 		TransactionStatus status = transactionManager.getTransaction(def);
 
 		try {
-
 			servletRequest.setCharacterEncoding("UTF-8");
-
 			HttpServletRequest request = (HttpServletRequest) servletRequest;
 			HttpServletResponse response = (HttpServletResponse) servletResponse;
 			HttpSession sessao = request.getSession();
@@ -70,7 +66,6 @@ public class FilterOpenSessionInView extends DelegatingFilterProxy implements
 
 			sf.getCurrentSession().beginTransaction();
 			chain.doFilter(servletRequest, servletResponse);
-
 			transactionManager.commit(status);
 
 			if (sf.getCurrentSession().getTransaction().isActive()) {
@@ -88,7 +83,6 @@ public class FilterOpenSessionInView extends DelegatingFilterProxy implements
 		} catch (Exception e) {
 
 			transactionManager.rollback(status);
-
 			e.printStackTrace();
 
 			if (sf.getCurrentSession().getTransaction().isActive()) {
@@ -107,7 +101,7 @@ public class FilterOpenSessionInView extends DelegatingFilterProxy implements
 					sf.getCurrentSession().close();
 				}
 			}
-
 		}
 	}
+	
 }

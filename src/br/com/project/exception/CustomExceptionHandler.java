@@ -17,111 +17,93 @@ import org.primefaces.context.RequestContext;
 
 import br.com.framework.hibernate.session.HibernateUtil;
 
-public class CustomExceptionHandler extends ExceptionHandlerWrapper{
-	
-	
+public class CustomExceptionHandler extends ExceptionHandlerWrapper {
+
 	private ExceptionHandler wrapperd;
-	
-	final FacesContext facesContext =  FacesContext.getCurrentInstance();
-	
+
+	final FacesContext facesContext = FacesContext.getCurrentInstance();
+
 	final Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
-	
+
 	final NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
-	
+
 	public CustomExceptionHandler(ExceptionHandler exceptionHandler) {
-		   this.wrapperd = exceptionHandler;
+		this.wrapperd = exceptionHandler;
 	}
-	
-	// Sobrescreve o método ExceptionHandler que retorna a "pilha" de exceções
-	
+
+	// Sobrescreve o mÃ©todo ExceptionHandler que retorna a "pilha" de exceÃ§Ãµes
 	@Override
 	public ExceptionHandler getWrapped() {
 		return wrapperd;
 	}
-	
-	// Sobrescreve o método handle que é responsável por manipular as exceções
+
+	// Sobrescreve o mÃ©todo handle que Ã© responsÃ¡vel por manipular as exceÃ§Ãµes
 	// do JSF
 	@Override
 	public void handle() throws FacesException {
 		final Iterator<ExceptionQueuedEvent> iterator = getUnhandledExceptionQueuedEvents().iterator();
-		
-		while (iterator.hasNext()){
+
+		while (iterator.hasNext()) {
 			ExceptionQueuedEvent event = iterator.next();
 			ExceptionQueuedEventContext context = (ExceptionQueuedEventContext) event.getSource();
-			
-			//Recuperar a exceção do contexto
-			Throwable exeption = context.getException();
-			
-			// Aqui trabalhamos a exceção
-			
-			try {
-				
-				requestMap.put("exceptionMessage", exeption.getMessage());
-				
-				if (exeption != null &&
-						exeption.getMessage() != null
-						&& exeption.getMessage().indexOf("ConstraintViolationException") != -1){
-					
-					FacesContext.getCurrentInstance().
-					addMessage("msg",new FacesMessage(FacesMessage.
-							SEVERITY_WARN,"Registro não pode ser removido por"
-									+ " estar associado.",""));
-					
-				}else if (exeption != null && exeption.getMessage() != null 
-						&& exeption.getMessage().
-						indexOf("org.hibernate.StaleObjectStateException") != -1) {
-					
-					FacesContext.getCurrentInstance().addMessage("msg",new 
-							FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Registro foi atualizado ou excluído por outro usuário."
-					+ " Consulte novamente.",""));
-					
-				}else {
-					// Avisa o usuário do erro
-					
-					// Avisa o usuário do erro
-					FacesContext.getCurrentInstance().addMessage("msg",new 
-							FacesMessage(FacesMessage.SEVERITY_FATAL,"O sistema se recuperou de um erro inesperado.",""));
-					
-					// Tranquiliza o usuário para que ele continue usando o sistema
-					FacesContext.getCurrentInstance().addMessage("msg",
-							new FacesMessage(FacesMessage.SEVERITY_INFO,"Você pode continuar usando o sistema normalmente!",""));
-					
-					FacesContext.getCurrentInstance().addMessage("msg",
-							new FacesMessage(FacesMessage.SEVERITY_FATAL,"O erro foi causado por:\n"+exeption.getMessage(), ""));
-				
-					
-					// PrimeFaces
-					//esse alert apenas é exibio se a pagina não redirecionar
-					RequestContext.getCurrentInstance().execute("alert('O sistema se recuperou de um erro inesperado.')");
 
-					
-					 RequestContext.getCurrentInstance().
-					 showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO, "Erro", "O sistema se recuperou de um erro inesperado.."));
-					
-					 // Redireciona para página de erro
-					 navigationHandler.handleNavigation(facesContext, null, 
-								"/error/error.jsf?faces-redirect=true&expired=true");
-					 
+			// Recuperar a exceÃ§Ã£o do contexto
+			Throwable exeption = context.getException();
+
+			// Aqui trabalhamos a exceÃ§Ã£o
+			try {
+				requestMap.put("exceptionMessage", exeption.getMessage());
+
+				if (exeption != null && exeption.getMessage() != null
+						&& exeption.getMessage().indexOf("ConstraintViolationException") != -1) {
+
+					FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Registro nï¿½o pode ser removido por" + " estar associado.", ""));
+
+				} else if (exeption != null && exeption.getMessage() != null
+						&& exeption.getMessage().indexOf("org.hibernate.StaleObjectStateException") != -1) {
+
+					FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Registro foi atualizado ou excluï¿½do por outro usuï¿½rio." + " Consulte novamente.", ""));
+
+				} else {
+					// Avisa o usuÃ¡rio do erro
+					FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_FATAL,
+							"O sistema se recuperou de um erro inesperado.", ""));
+
+					// Tranquiliza o usuÃ¡rio para que ele continue usando o sistema
+					FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Vocï¿½ pode continuar usando o sistema normalmente!", ""));
+
+					FacesContext.getCurrentInstance().addMessage("msg", new FacesMessage(FacesMessage.SEVERITY_FATAL,
+							"O erro foi causado por:\n" + exeption.getMessage(), ""));
+
+					// PrimeFaces
+					// esse alerta apenas Ã© exibio se a pagina nÃ£o redirecionar
+					RequestContext.getCurrentInstance()
+							.execute("alert('O sistema se recuperou de um erro inesperado.')");
+
+					RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Erro", "O sistema se recuperou de um erro inesperado.."));
+
+					// Redireciona para pÃ¡gina de erro
+					navigationHandler.handleNavigation(facesContext, null,
+							"/error/error.jsf?faces-redirect=true&expired=true");
 				}
-				
+
 				// Renderiza a pagina de erro e exibe as mensagens
 				facesContext.renderResponse();
-			}finally {
+			} finally {
 				SessionFactory sf = HibernateUtil.getSessionFactory();
-				if (sf.getCurrentSession().getTransaction().isActive()){
+				if (sf.getCurrentSession().getTransaction().isActive()) {
 					sf.getCurrentSession().getTransaction().rollback();
 				}
-				
-				//imprime o erro no console
+				// imprime o erro no console
 				exeption.printStackTrace();
-				
 				iterator.remove();
 			}
 		}
-		
 		getWrapped().handle();
-		
 	}
 
 }

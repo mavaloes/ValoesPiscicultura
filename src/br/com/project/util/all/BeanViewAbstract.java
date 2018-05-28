@@ -60,13 +60,12 @@ public abstract class BeanViewAbstract implements ActionViewPadrao {
 	@Override
 	public void statusOperation(EstatusPersistencia a) throws Exception {
 		Messagens.responseOperation(a);
-
 	}
-	
+
 	protected void sucesso() throws Exception {
 		statusOperation(EstatusPersistencia.SUCESSO);
 	}
-	
+
 	protected void error() throws Exception {
 		statusOperation(EstatusPersistencia.ERRO);
 	}

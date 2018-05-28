@@ -3,8 +3,7 @@ package br.com.project.bean.geral;
 import java.io.Serializable;
 import java.util.Comparator;
 
-public class ObjetoCampoConsulta implements Serializable,
-		Comparator<ObjetoCampoConsulta> {
+public class ObjetoCampoConsulta implements Serializable, Comparator<ObjetoCampoConsulta> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -49,8 +48,7 @@ public class ObjetoCampoConsulta implements Serializable,
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((campoBanco == null) ? 0 : campoBanco.hashCode());
+		result = prime * result + ((campoBanco == null) ? 0 : campoBanco.hashCode());
 		return result;
 	}
 
@@ -78,8 +76,7 @@ public class ObjetoCampoConsulta implements Serializable,
 
 	@Override
 	public int compare(ObjetoCampoConsulta o1, ObjetoCampoConsulta o2) {
-		return ((ObjetoCampoConsulta) o1).getPrincipal().compareTo(
-				((ObjetoCampoConsulta) o2).getPrincipal());
+		return ((ObjetoCampoConsulta) o1).getPrincipal().compareTo(((ObjetoCampoConsulta) o2).getPrincipal());
 	}
 
 }
