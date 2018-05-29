@@ -6,7 +6,6 @@ var classTypeDate = 'java.util.Date';
 var classTypeBoolean = 'java.lang.Boolean';
 var classTypeBigDecimal = 'java.math.BigDecimal';
 
-
 function reloadPage() {
 	$(function() {
 		location.reload();
@@ -22,7 +21,6 @@ function validaDescricao(descricao) {
 		return descricao;
 	}
 }
-
 
 // invalida a sessão do spring security
 function logout(contextPath) {
@@ -72,12 +70,9 @@ function permitNumber(e) {
 	}
 }
 
-
 function naoPermiteEntradaDeDados(e) {
 	return false;
 }
-
-
 
 function permitAlphaNumerico(e) {
 	var unicode = e.charCode ? e.charCode : e.keyCode;
@@ -101,8 +96,7 @@ function addMascaraDecimalMonetaria(id) {
 		jQuery(function($){
 			$("#"+id).maskMoney({precision:2, decimal:",", thousands:"."}); 
 		});	
-	}
-	
+	}	
 }
 
 function validarSenhaLogin() {
@@ -120,9 +114,7 @@ function validarSenhaLogin() {
 		 $("#j_password").focus();
 		return false;
 	}
-
 	return true;
-
 }
 
 function initTamplete() {
@@ -163,8 +155,7 @@ function ocultarMenu() {
 		$('#paginapesquisa').html('&nbsp;');
 		$('#valorpesquisa').val('');
 		$('#dialogopesquisa').hide();
-	}
-	
+	}	
 
 	function localeData_pt_br() {
 		PrimeFaces.locales['pt'] = {
@@ -224,6 +215,7 @@ function carregarIdElementosPagina() {
 		 }
 	 }
 }
+
 /**
  * Retorno o valor do id do componente dentro do documento html passando como
  * parametro a descri��o do id declarada em jsf
@@ -429,8 +421,6 @@ function addResponsavelSelecionadoTitulo(objeto) {
 	addResponsavelTitulo(''+entObj.ent_codigo);
 }
 
-
-
 function addContrutoraSelecionadoVendedor2(objeto) {
 	var entObj = JSON.parse(objeto);
 	$("#ent_codigo").val(entObj.ent_codigo);
@@ -444,8 +434,6 @@ function addVendedorSelecionadoConstrutora(objeto) {
 	addVendedorContrutora(''+entObj.ent_codigo);
 }
 
-
-
 /**
  * Add cidade selecionada na tela de entidade
  * 
@@ -457,7 +445,6 @@ function addCidadeSelecionadoEntidade(objeto) {
 	$("#cid_descricao").val(validaDescricao(cidadeObj.cid_descricao));
 	addCidadeEntidade(''+cidadeObj.cid_codigo);
 }
-
 
 /**
  * Add cidade selecionada na tela de entidade
@@ -509,7 +496,6 @@ function pesquisarResponsavelPerderFoco(id) {
 		});
 	}
 }
-
 
 /**
  * Pesquisa bairro ao informar o id
@@ -619,7 +605,6 @@ function pesquisarUserDestinoPerderFocoDialog(id) {
 	}
 }
 
-
 function pesquisarFuncionarioComissaoPerdeFoco(id) {
 	if (id.trim() != '') {
 	 statusDialog.show();
@@ -636,7 +621,6 @@ function pesquisarFuncionarioComissaoPerdeFoco(id) {
 		});
 	}
 }
-
 
 function pesquisarEntidadePerderFoco(id) {
 	if (id.trim() != '') {
@@ -688,7 +672,6 @@ function addBairroFunc(id) {
 	}
 } 
 
-
 /**
  * add bairro selecionado a filial sendo cadastrado
  * 
@@ -699,7 +682,6 @@ function addBairroFilial(id) {
 		 $.get("addBairroFilial?codBairro=" + id);
 	}
 } 
-
 
 function addDestinoMsg(id) {
 	if (id.trim() != '') {
@@ -713,13 +695,11 @@ function addFuncComissao(id) {
 	}
 } 
 
-
 function addConstrutoraEmpreendimento(id) {
 	if (id.trim() != '') {
 		 $.get("addConstrutoraEmpreendimento?codConstrutora=" + id);
 	}
 } 
-
 
 function addConstrutoraVendedor(id) {
 	if (id.trim() != '') {
@@ -733,7 +713,6 @@ function addVendedorContrutora(id) {
 	}
 } 
 
-
 /**
  * Add bairro selecionado na entidade sendo cadastrada
  * 
@@ -745,7 +724,6 @@ function addBairroEntidade(id) {
 	}
 } 
 
-
 /**
  * Add filial selecionada na entidade sendo cadastrada
  * 
@@ -755,16 +733,13 @@ function addFilialEntidade(id) {
 	if (id.trim() != '') {
 		 $.get("addFilialEntidade?codFilial=" + id);
 	}
-} 
-
+}
 
 function addResponsavelTitulo(id) {
 	if (id.trim() != '') {
 		 $.get("addResponsavelTitulo?codResponsavel=" + id);
 	}
 } 
-
-
 
 /**
  * Add filial selecionada no funcionario sendo cadastrada
@@ -783,9 +758,6 @@ function addFilialComissao(id) {
 	}
 } 
 
-
-
-
 /**
  * Add cidade selecinada na filial sendo cadastrada
  * 
@@ -795,8 +767,7 @@ function addCidadeFilial(id) {
 	if (id.trim() != '') {
 		 $.get("addCidadeFilial?codCidade=" + id);
 	}
-} 
-
+}
 
 /**
  * Add cidade selecinada no funcionario sendo cadastrada
@@ -808,7 +779,6 @@ function addCidadeFunc(id) {
 		 $.get("addCidadeFunc?codCidade=" + id);
 	}
 } 
-
 
 /**
  * Add cidade selecionada na entidade sendo cadastrada
@@ -833,7 +803,6 @@ function verificaMsgNaoLidas() {
 		 }
 	  }); 
 } 
-
 
 function alterarSenha(context) {
 	 statusDialog.show();
@@ -976,9 +945,6 @@ function ocultaDataNacimento(value){
 	  }
 	}
 
-
-
-
 function invocaApplet(context) {
 	
 	   // Faz algo com ajax...
@@ -1056,4 +1022,3 @@ function executeApplet(context) {
 function erroApplet(erro) { 
 	alert(erro);
 }
-
